@@ -123,9 +123,7 @@ class FaceAnalyzer(
             FaceLandmark.RIGHT_EAR,
             FaceLandmark.MOUTH_LEFT,
             FaceLandmark.MOUTH_RIGHT,
-            FaceLandmark.MOUTH_BOTTOM,
-            FaceLandmark.LEFT_EAR_TRAGION,
-            FaceLandmark.RIGHT_EAR_TRAGION
+            FaceLandmark.MOUTH_BOTTOM
         )
         
         landmarkTypes.forEach { landmarkType ->
