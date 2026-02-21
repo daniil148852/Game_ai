@@ -20,7 +20,7 @@ class FaceAnalyzer(
 
     private val faceDetector: FaceDetector
     private val meshDetector: com.google.mlkit.vision.facemesh.FaceMeshDetector? = if (enableMesh) {
-        FaceMeshDetection.getClient(FaceMeshDetectorOptions.ALL_CONTOURS)
+        FaceMeshDetection.getClient(FaceMeshDetectorOptions.Builder().build())
     } else null
 
     private val isProcessing = AtomicBoolean(false)
