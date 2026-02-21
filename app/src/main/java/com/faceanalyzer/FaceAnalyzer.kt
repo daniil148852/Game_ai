@@ -20,12 +20,7 @@ class FaceAnalyzer(
 
     private val faceDetector: FaceDetector
     private val meshDetector: com.google.mlkit.vision.facemesh.FaceMeshDetector? = if (enableMesh) {
-        FaceMeshDetection.getClient(
-            FaceMeshDetectorOptions.Builder()
-                .setPerformanceMode(FaceMeshDetectorOptions.PERFORMANCE_MODE_FAST)
-                .setUseCase(FaceMeshDetectorOptions.USE_CASE_ALL)
-                .build()
-        )
+        FaceMeshDetection.getClient(FaceMeshDetectorOptions.ALL_CONTOURS)
     } else null
 
     private val isProcessing = AtomicBoolean(false)
@@ -118,7 +113,22 @@ class FaceAnalyzer(
     private fun extractLandmarks(face: Face): List<PointF> {
         val points = mutableListOf<PointF>()
         
-        FaceLandmark.LANDMARK_TYPE_INTS.forEach { landmarkType ->
+        val landmarkTypes = listOf(
+            FaceLandmark.LEFT_EYE,
+            FaceLandmark.RIGHT_EYE,
+            FaceLandmark.LEFT_CHEEK,
+            FaceLandmark.RIGHT_CHEEK,
+            FaceLandmark.NOSE_BASE,
+            FaceLandmark.LEFT_EAR,
+            FaceLandmark.RIGHT_EAR,
+            FaceLandmark.MOUTH_LEFT,
+            FaceLandmark.MOUTH_RIGHT,
+            FaceLandmark.MOUTH_BOTTOM,
+            FaceLandmark.LEFT_EAR_TRAGION,
+            FaceLandmark.RIGHT_EAR_TRAGION
+        )
+        
+        landmarkTypes.forEach { landmarkType ->
             face.getLandmark(landmarkType)?.let { landmark ->
                 points.add(landmark.position)
             }
